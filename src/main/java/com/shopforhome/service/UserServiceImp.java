@@ -85,6 +85,17 @@ public class UserServiceImp implements UserService {
 	public void updateUser(User user) {
 		// check if user exists
 		// if exists then save otherwise return error message
+		Role userRole = new Role();
+		userRole.setRoleName("User");
+		userRole.setRoleDescription("Default role for newly created record");
+		roleRepo.save(userRole);
+		
+		Set<Role> userRoles = new HashSet<>();
+		userRoles.add(userRole);
+		user.setRole(userRoles);
+		
+		user.setUserPassword(getEncodedPassword(user.getUserPassword()));
+		
 		userRepo.save(user);
 	}
 

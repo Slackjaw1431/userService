@@ -71,14 +71,19 @@ public class UserController {
 	}
 
 	@GetMapping("/userById/{id}")
-	public ResponseEntity<Optional<User>> getUserById(@PathVariable Long id) {
-		Optional<User> user = userService.get(id);
+	public ResponseEntity<Optional<User>> getUserById(@PathVariable String id) {
+		Optional<User> user = Optional.of(userRepo.findByUserName(id));
 		return ResponseEntity.ok(user);
 	}
 
 	@PutMapping({ "/updateUser" })
 	@PreAuthorize("hasRole('Admin')")
 	public void updateUser(@RequestBody User user) {
+		userService.updateUser(user);
+	}
+	
+	@PutMapping({ "/updateSelf" })
+	public void updateSelf(@RequestBody User user) {
 		userService.updateUser(user);
 	}
 
