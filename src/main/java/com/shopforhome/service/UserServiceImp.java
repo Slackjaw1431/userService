@@ -72,13 +72,8 @@ public class UserServiceImp implements UserService {
 	}
 
 	public void deleteUser(User user) {
-//        Role role = roleDao.findById("User").get();
-//        Set<Role> userRoles = new HashSet<>();
-//        userRoles.add(role);
-//        user.setRole(userRoles);
-//        user.setUserPassword(getEncodedPassword(user.getUserPassword()));
-		// check if user exists
-		// if exists then save otherwise return error message
+		Set<Role> userRoles = new HashSet<>();
+		user.setRole(userRoles);
 		userRepo.delete(user);
 	}
 
